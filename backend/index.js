@@ -11,9 +11,14 @@ const allRoutes = require('./routes/index')
 const PORT = process.env.PORT || 3300;
 const app = express()
 
+const corsOptions = {
+  origin: "*",
+  optionsSuccessStatus: 200
+}
+
 // Middlewares
 
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(morgan('tiny'))
 app.use(express.json())
 app.use(cookieParser())
