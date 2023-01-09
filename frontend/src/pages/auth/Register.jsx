@@ -1,20 +1,21 @@
 import { Toaster } from 'react-hot-toast'
 import Layout from '../../components/layout/Layout'
-import Login from '../../components/Login/Login'
+import Register from '../../components/Register/Register'
 import './auth.css'
 
-const Auth = () => {
+const AuthRegister = () => {
   return (
     <Layout>
-      <div className='box'>
-      <Toaster
+        <div className='box'>
+            <Toaster
               position="bottom-center"
               reverseOrder={false}
             />
-        <Login/>
-      </div>
+            <Register/>
+        </div>
     </Layout>
+    
   )
 }
 
-export default Auth
+export default AuthRegister

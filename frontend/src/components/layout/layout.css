@@ -1,13 +1,11 @@
 .container {
-    width: 90%;
-    max-width: 60rem;
+    height: 100%;
     margin: 0 auto;
     padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-@media screen and (max-width: 760px) {
-    .container{
-        width: 100%;
-    }
-}
 

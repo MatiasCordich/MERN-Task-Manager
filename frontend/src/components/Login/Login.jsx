@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { host } from '../../utils/APIRoutes'
 import useAuth from '../../hooks/useAuth'
 import axios from 'axios'
 import './AuthForm.css'
+import { toast } from 'react-hot-toast'
 
 
 const Login = () => {
@@ -46,8 +47,23 @@ const Login = () => {
       navigate('/')
       
     } catch (error) {
-      console.log(error)
+
+      toast.error("There was an error", {
+        style: {
+          border: '2px dotted #346751',
+          background: 'transparent',
+          padding: '16px',
+          color: "#C84B31"
+        },
+        iconTheme:{
+          primary: '#C84B31',
+          secondary: '#EDEDED'
+        }
+      })
+      
       verifyAuth();
+
+
     }
   }
 
@@ -57,27 +73,31 @@ const Login = () => {
       <h1>
         Login
       </h1>
-      <form onSubmit={login}>
-        <label htmlFor="">
+      <form className='form-box' onSubmit={login}>
+        <label className='label-box' htmlFor="email">
           Email
           <input
+            className='input-box'
             onChange={(e) => handleChange(e)} 
             value={values.email} 
             type="email" name='email' 
-            placeholder='email' 
+            placeholder='Email' 
             required />
         </label>
-        <label htmlFor="">
+        <label className='label-box' htmlFor="password">
           Password
           <input
+            className='input-box'
             onChange={(e) => handleChange(e)}  
             value={values.password} 
             type="password" 
             name='password' 
-            placeholder='password' 
+            placeholder='Password' 
             required />
         </label>
-        <button type='submit'>Login</button>
+        <button className='btn-auth' type='submit'>Login</button>
+        <p>New? <Link to='/register'>Register</Link></p>
+        
       </form>
     </div>
   )

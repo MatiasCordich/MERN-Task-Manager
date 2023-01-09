@@ -1,8 +1,9 @@
 import Router from './router/Router';
+import './styles/globalStyles.css'
 
 function App() {
   return (
-    <div className="App">
+    <div className="wrapper">
       <Router/>
     </div>
   );
