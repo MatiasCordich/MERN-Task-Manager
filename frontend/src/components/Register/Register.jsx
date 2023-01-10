@@ -8,11 +8,23 @@ import { toast } from 'react-hot-toast'
 
 const Register = () => {
 
+  const messages = {
+    nameRequired: "Nombre obligatorio",
+    emailRequired: "Email obligatorio",
+    passwordRequired: "Contraña obligatoria",
+    emailValid: "Ingrese un email valido",
+    passwordLength: "Minimo 8 caracteres"
+  }
+
   const [values, setValues] = useState({
     name: '',
     email: '',
     password: ''
   })
+
+  const [errorName, setErrorName] = useState('')
+  const [errorEmail, setErrorEmail] = useState('')
+  const [errorPassword, setErrorPassword] = useState('')
 
   const navigate = useNavigate()
 
@@ -24,45 +36,99 @@ const Register = () => {
 
     e.preventDefault()
 
-    const { name, email, password } = values
+    if (
+      validateName() &&
+      validateEmail() &&
+      validatePassword()
+    ) {
 
-    const user = {
-      name, email, password
+      try {
+
+        const { name, email, password } = values
+
+        const user = {
+          name, email, password
+        }
+
+        await axios.post(`${host}/api/auth/register`, user)
+
+        navigate('/auth')
+
+      } catch (error) {
+        toast.error("Hubo un error", {
+          style: {
+            border: '2px dotted #346751',
+            background: 'transparent',
+            padding: '16px',
+            color: "#C84B31"
+          },
+          iconTheme: {
+            primary: '#C84B31',
+            secondary: '#EDEDED'
+          }
+        })
+      }
+
     }
 
-    try {
+  }
 
-      await axios.post(`${host}/api/auth/register`, user)
+  const validateName = () => {
 
-      toast.success("Register successfully!!!", {
-        style: {
-          border: '2px dotted #346751',
-          padding: '16px',
-          color: "#C84B31"
-        },
-        iconTheme:{
-          primary: '#346751',
-          secondary: '#EDEDED'
-        }
-      })
+    let validate = false;
 
-      navigate('/auth')
-
-    } catch (error) {
-      toast.error("There was an error", {
-        style: {
-          border: '2px dotted #346751',
-          background: 'transparent',
-          padding: '16px',
-          color: "#C84B31"
-        },
-        iconTheme:{
-          primary: '#C84B31',
-          secondary: '#EDEDED'
-        }
-      })
+    if (!values.name) {
+      setErrorName(messages.nameRequired)
+      return
+    } else if (values.name && values.name.length >= 1 && values.name.length <= 3) {
+      setErrorName(messages.nameLength)
+    } else {
+      setErrorName('')
+      validate = true
     }
 
+    return validate
+  }
+
+
+  const validateEmail = () => {
+
+    let validate = false;
+
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+
+    if (!values.email) {
+      setErrorEmail(messages.emailRequired)
+    } else if (values.email && !regex.test(values.email)) {
+      setErrorEmail(messages.emailValid)
+    } else {
+      setErrorEmail('')
+      validate = true
+    }
+
+    return validate
+
+  }
+
+  const validatePassword = () => {
+
+    let validate = false;
+
+    if (!values.password) {
+      setErrorPassword(messages.passwordRequired)
+    } else if (values.password && values.password.length >= 1 && values.password.length <= 7) {
+      setErrorPassword(messages.passwordLength)
+    } else {
+      setErrorPassword('')
+      validate = true
+    }
+
+    return validate
+  }
+
+  const style = {
+    color: "#C84B31",
+    fontSize: '1.5rem'
   }
 
   return (
@@ -78,7 +144,8 @@ const Register = () => {
             type="text"
             name='name'
             placeholder='Name'
-            required />
+            />
+            <p style={style}>{errorName}</p>
         </label>
         <label className='label-box' htmlFor="email">
           Email:
@@ -89,7 +156,8 @@ const Register = () => {
             type="email"
             name='email'
             placeholder='Email'
-            required />
+            />
+            <p style={style}>{errorEmail}</p>
         </label>
         <label className='label-box' htmlFor="password">
           Password
@@ -100,7 +168,8 @@ const Register = () => {
             type="password"
             name='password'
             placeholder='Password'
-            required />
+            />
+            <p style={style}>{errorPassword}</p>
         </label>
         <button className='btn-auth' type='submit'>Register</button>
         <p>Registered? <Link to='/auth'>Login</Link></p>

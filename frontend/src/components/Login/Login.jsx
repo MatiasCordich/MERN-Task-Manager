@@ -9,62 +9,97 @@ import { toast } from 'react-hot-toast'
 
 const Login = () => {
 
+  const messages = {
+    emailRequired: "Email es obligatorio",
+    passwordRequired: "Contraseña obligatoria",
+  }
+
   const { verifyAuth, auth } = useAuth()
 
   const navigate = useNavigate()
 
-  const [ values, setValues ] = useState(
+  const [values, setValues] = useState(
     {
       email: "",
       password: ""
     }
   )
 
+  const [errorEmail, setErrorEmail] = useState('')
+  const [errorPassword, setErrorPassword] = useState('')
+
   useEffect(() => {
-    if(auth){
+    if (auth) {
       navigate('/')
     }
   }, [auth])
 
   const handleChange = (e) => {
-      setValues({...values, [e.target.name]: e.target.value})
+    setValues({ ...values, [e.target.name]: e.target.value })
   }
 
   const login = async (e) => {
 
-    try {
+    e.preventDefault()
 
-      e.preventDefault()
+    if (validateEmail() && validatePassword()) {
 
-      const { email, password } = values
-  
-      await axios.post(`${host}/api/auth/login`, {
-        email,
-        password
-      })
-  
-      await verifyAuth()
-      navigate('/')
-      
-    } catch (error) {
+      try {
+        const { email, password } = values
 
-      toast.error("There was an error", {
-        style: {
-          border: '2px dotted #346751',
-          background: 'transparent',
-          padding: '16px',
-          color: "#C84B31"
-        },
-        iconTheme:{
-          primary: '#C84B31',
-          secondary: '#EDEDED'
-        }
-      })
-      
-      verifyAuth();
+        const { res } = await axios.post(`${host}/api/auth/login`, {
+          email,
+          password
+        })
 
+        await verifyAuth()
+        navigate('/')
+      } catch (error) {
+
+        toast.error("Email o contraseña invalidos", {
+          style: {
+            border: '2px dotted #346751',
+            background: 'transparent',
+            padding: '16px',
+            color: "#C84B31"
+          },
+          iconTheme: {
+            primary: '#C84B31',
+            secondary: '#EDEDED'
+          }
+        })
+
+      }
 
     }
+
+  }
+
+  const validateEmail = () => {
+
+    let validate = false
+    if (!values.email) return setErrorEmail(messages.emailRequired)
+
+    setErrorEmail('')
+    validate = true
+
+    return validate
+  }
+
+  const validatePassword = () => {
+
+    let validate = false
+    if (!values.password) return setErrorPassword(messages.passwordRequired)
+
+    setErrorPassword('')
+    validate = true
+
+    return validate
+  }
+
+  const style = {
+    color: "#C84B31",
+    fontSize: '1.5rem'
   }
 
 
@@ -78,26 +113,28 @@ const Login = () => {
           Email
           <input
             className='input-box'
-            onChange={(e) => handleChange(e)} 
-            value={values.email} 
-            type="email" name='email' 
-            placeholder='Email' 
-            required />
+            onChange={(e) => handleChange(e)}
+            value={values.email}
+            type="email" name='email'
+            placeholder='Email'
+          />
+          <p style={style}>{errorEmail}</p>
         </label>
         <label className='label-box' htmlFor="password">
           Password
           <input
             className='input-box'
-            onChange={(e) => handleChange(e)}  
-            value={values.password} 
-            type="password" 
-            name='password' 
-            placeholder='Password' 
-            required />
+            onChange={(e) => handleChange(e)}
+            value={values.password}
+            type="password"
+            name='password'
+            placeholder='Password'
+          />
+          <p style={style}>{errorPassword}</p>
         </label>
         <button className='btn-auth' type='submit'>Login</button>
         <p>New? <Link to='/register'>Register</Link></p>
-        
+
       </form>
     </div>
   )
