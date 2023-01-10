@@ -17,7 +17,7 @@ const registerCtrl = async (req, res) => {
 
         if (isExist) {
             res.status(500)
-            res.send({ msg: "USER_ALREADY_EXISTS" })
+            res.send({ msg: "USER_ALREADY_EXISTS", status: false })
             return
         }
 
@@ -33,7 +33,7 @@ const registerCtrl = async (req, res) => {
 
         await newUser.save()
 
-        return res.status(200).send({ msg: "User Created", data: newUser })
+        return res.status(200).send({ status:true, msg: "User Created", data: newUser })
 
     } catch (error) {
         res.status(500)
@@ -55,8 +55,8 @@ const loginCtrl = async (req, res) => {
         const isExist = await User.findOne({ email })
 
         if (!isExist) {
-            res.status(500)
-            res.send({ msg: "USER_NOT_FOUND" })
+            res.status(401)
+            res.send({ msg: "Email inexistente", status: false })
             return
         }
 
@@ -66,7 +66,7 @@ const loginCtrl = async (req, res) => {
 
         if (!isPasswordCorrect) {
             res.status(500)
-            res.send({ msg: "PASSWORD_INCORRECT" })
+            res.send({ msg: "Password incorrecta", status: false })
             return
         }
 
@@ -81,7 +81,7 @@ const loginCtrl = async (req, res) => {
 
         return res.cookie('access_token', token, {
             httpOnly: true
-        }).status(200).send({ msg: "LOGIN_SUCCESS" })
+        }).status(200).send({ msg: "LOGIN_SUCCESS", status: true })
 
 
     } catch (error) {
