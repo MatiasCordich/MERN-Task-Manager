@@ -40,7 +40,17 @@ const TaskList = () => {
 
         e.preventDefault()
 
-        if (newTask.length <= 0) return toast.error('La tarea esta vacia')
+        if (newTask.length <= 0) return  toast.error("Titulo vacio", {
+            style: {
+                background: '#C84B31',
+                padding: '16px',
+                color: '#EDEDED',
+            },
+            iconTheme: {
+                primary: '#EDEDED',
+                secondary: '#C84B31',
+            }
+        })
 
         try {
 

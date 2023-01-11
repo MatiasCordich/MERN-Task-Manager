@@ -15,7 +15,6 @@ const Navbar = () => {
         try {
             const data = await axios.get(`${host}/api/users/me`)
             setUser(data)
-            console.log(data)
         } catch (error) {
             console.log(error)
         }

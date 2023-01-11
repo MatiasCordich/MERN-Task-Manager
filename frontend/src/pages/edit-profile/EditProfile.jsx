@@ -36,7 +36,18 @@ const EditProfile = () => {
 
     try {
       const res = await axios.put(`${host}/api/users/me`, user)
-      toast.success("Perfil editado!!!")
+      
+      toast.success("Pefil editado", {
+        style: {
+            background: '#346751',
+            padding: '16px',
+            color: '#ECDBBA',
+        },
+        iconTheme: {
+            primary: '#EDEDED',
+            secondary: '#346751',
+        }
+    })
       setUser(res.data)
     } catch (error) {
       toast.error('HUBO UN ERROR')
