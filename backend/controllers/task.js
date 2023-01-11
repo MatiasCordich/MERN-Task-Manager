@@ -23,7 +23,7 @@ const getAllTasksCtrl = async (req, res, next) => {
         const tasks = await Task.find({})
 
         if(!tasks){
-            res.status(500)
+            res.status(200)
             res.send({msg: "THERE_IS_NO_TASKS"})
             return
         }
@@ -43,8 +43,8 @@ const getCurrentTaskCtrl = async (req, res, next) => {
         const tasks = await Task.find({ user: req.user.id})
 
         if(!tasks){
-            res.status(500)
-            res.send({msg: "THERE_IS_NO_TASKS"})
+            res.status(200)
+            res.send({msg: "THERE_IS_NO_TASK"})
             return
         }
 
@@ -69,7 +69,7 @@ const updateTaskCtrl = async (req, res, next) => {
 
         if(task.user.toString() !== req.user.id){
             res.status(500)
-            res.send({msg: "THERE_IS_NO_YOUR_TASK"})
+            res.send({status: 401, msg: "THERE_IS_NO_YOUR_TASK"})
             return
         }
 
