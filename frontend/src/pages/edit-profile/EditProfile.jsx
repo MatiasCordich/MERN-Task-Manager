@@ -65,7 +65,6 @@ const EditProfile = () => {
               type="text"
               name='name'
               placeholder='Nombre completo'
-              required
               value={user.name}
               onChange={(e) => handleChange(e)}
             />
@@ -77,7 +76,6 @@ const EditProfile = () => {
               type="email"
               name='email'
               placeholder='Email'
-              required
               value={user.email}
               onChange={(e) => handleChange(e)}
             />

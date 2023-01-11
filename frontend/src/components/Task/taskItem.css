@@ -1,0 +1,26 @@
+.task-item td{
+    padding: 1rem;
+}
+
+.task-title{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.task-title p {
+    font-weight: 600;
+}
+.checkbox:checked{
+    accent-color: var(--light-green);
+}
+.complete-td{
+    font-weight: 600;
+}
+
+.btn-delete{
+    color: var(--white);
+    background-color: var(--terracota);
+    padding: 1rem;
+    border-radius: .4rem;
+}
