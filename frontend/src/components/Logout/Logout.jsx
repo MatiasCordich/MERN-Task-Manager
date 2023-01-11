@@ -2,6 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import useAuth from '../../hooks/useAuth'
 import { host } from '../../utils/APIRoutes'
+import './logout.css'
 
 const Logout = () => {
 
@@ -13,7 +14,7 @@ const Logout = () => {
     }
   return (
 
-    <button onClick={logout}>Logout</button>
+    <button className='logout-btn' onClick={logout}>Logout</button>
   )
 }
 

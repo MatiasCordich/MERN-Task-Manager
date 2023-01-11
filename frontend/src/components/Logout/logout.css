@@ -1,0 +1,7 @@
+.logout-btn{
+    padding: 1rem 1.5rem;
+    background: var(--terracota);
+    font-size: 1.8rem;
+    color: var(--white);
+    border-radius: .4rem;
+}

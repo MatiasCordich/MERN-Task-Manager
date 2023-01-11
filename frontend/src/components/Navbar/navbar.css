@@ -1,0 +1,34 @@
+.navbar,
+.user-info,
+.navbar-btns{
+    display: flex;
+    align-items: center;
+}
+
+.navbar{
+    justify-content: space-around;
+    margin: 1rem;
+    border: 2px dotted var(--terracota);
+    border-radius: .6rem;
+    height: 9rem;
+}
+
+.user-info{
+    gap: 1rem;
+}
+
+.user-info p {
+    color: var(--terracota);
+    font-weight: 600;
+}
+
+.navbar-btns{
+    gap: 1rem;
+}
+
+.navbar-btns a {
+    background: var(--light-green);
+    padding: 1rem 1.5rem;
+    color: var(--white);
+    border-radius: .4rem;
+}

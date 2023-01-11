@@ -1,0 +1,19 @@
+.btn-box{
+    margin: 2rem;
+}
+
+.btn-box a {
+    background-color: var(--light-green);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border-radius: .4rem;
+
+}
+
+.edit-box{
+    height: 100vh;
+}
+
+.h-40{
+    height: 40rem;
+}
