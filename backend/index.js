@@ -13,25 +13,18 @@ const app = express()
 
 const corsOptions = {
   origin: "*",
-  credentials: true,
   optionsSuccessStatus: 200
 }
 
 // Middlewares
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
-
-app.use(cors(corsOptions))
 app.use(morgan('tiny'))
 app.use(express.json())
 app.use(cookieParser())
 
 // Rutas
 
-app.use('/api', allRoutes)
+app.use('/api', cors(corsOptions), allRoutes)
 app.get('/', (req, res) => {
   res.send({msg: "API funcionando"})
 })
