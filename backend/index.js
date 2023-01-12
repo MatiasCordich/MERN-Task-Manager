@@ -26,7 +26,9 @@ app.use(cookieParser())
 // Rutas
 
 app.use('/api', allRoutes)
-
+app.get('/', (req, res) => {
+  res.send({msg: "API funcionando"})
+})
 
 // Conexion a la DB
 
