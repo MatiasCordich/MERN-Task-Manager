@@ -20,6 +20,7 @@
 .task-box{
     display: flex;
     justify-content: space-around;
+    margin-top: 2rem;
 }
 
 .box-1,
@@ -37,3 +38,39 @@
     width: 95%;
     padding: 1rem;
 }
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .task-box{
+        flex-direction: column;
+        width: 100%;
+        margin: 2rem 0;
+    }
+
+    .box-1,
+    .box-2{
+        width: 100%;
+    }
+
+    .table-box{
+        padding: 0;
+    }
+
+
+
+    .task-title{
+        justify-content: center;
+    }
+
+    .complete-td{
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 425px) {
+    .table-body{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
