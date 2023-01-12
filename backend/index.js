@@ -11,20 +11,20 @@ const allRoutes = require('./routes/index')
 const PORT = process.env.PORT || 3300;
 const app = express()
 
-const corsOptions = {
-  origin: "*",
-  optionsSuccessStatus: 200
-}
 
 // Middlewares
-
+app.use(
+  cors({
+    origin: "*"
+  })
+)
 app.use(morgan('tiny'))
 app.use(express.json())
 app.use(cookieParser())
 
 // Rutas
 
-app.use('/api', cors(corsOptions), allRoutes)
+app.use('/api', allRoutes)
 app.get('/', (req, res) => {
   res.send({msg: "API funcionando"})
 })
