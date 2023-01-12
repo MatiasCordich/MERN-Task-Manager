@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3300;
 const app = express()
 
 const corsOptions = {
-  origin: "https://mern-task-manager-frontend.vercel.app",
+  origin: "*",
   credentials: true,
   optionsSuccessStatus: 200
 }
@@ -20,7 +20,7 @@ const corsOptions = {
 // Middlewares
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'true');
+  res.header('Access-Control-Allow-Origin', '*');
   next();
 });
 
