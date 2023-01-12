@@ -1,8 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { host } from '../../utils/APIRoutes'
+import baseUrl, { host } from '../../utils/APIRoutes'
 import useAuth from '../../hooks/useAuth'
-import axios from 'axios'
 import './AuthForm.css'
 import { toast } from 'react-hot-toast'
 
@@ -47,7 +46,7 @@ const Login = () => {
       try {
         const { email, password } = values
 
-        const { res } = await axios.post(`${host}/api/auth/login`, {
+        const { res } = await baseUrl.post(`/api/auth/login`, {
           email,
           password
         })
