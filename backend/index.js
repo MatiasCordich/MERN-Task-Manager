@@ -11,14 +11,11 @@ const allRoutes = require('./routes/index')
 const PORT = process.env.PORT || 3300;
 const app = express()
 
-const corsOptions = {
-  origin: "https://mern-task-manager-frontend.vercel.app",
-  optionsSuccessStatus: 200
-}
+
 
 // Middlewares
 
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(morgan('tiny'))
 app.use(express.json())
 app.use(cookieParser())
