@@ -13,6 +13,7 @@ const app = express()
 
 const corsOptions = {
   origin: "https://mern-task-manager-frontend.vercel.app",
+  credentials: true,
   optionsSuccessStatus: 200
 }
 
